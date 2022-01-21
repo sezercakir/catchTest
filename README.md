@@ -1,6 +1,6 @@
 # [Catch2](https://github.com/catchorg/Catch2) Test Framework Document&Practices
 
-This repo was created as an example of using the catch test framework with many c++ libraries. They can provide depth to users in testing the Catch interface and other libraries.
+This repo was created as an example of using the catch test framework with many c++ libraries. They can provide depth to users in testing the Catch and other libraries.
 
 ## Directories
 There is basic structure of cpp project that consists of inc,src adn test directories in all project folder.
