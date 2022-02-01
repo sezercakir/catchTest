@@ -11,11 +11,16 @@
 #include "test_main.hpp"
 
 SCENARIO("Test constructor","[tag]"){
-    WHEN("First Initialize"){
-        DB databse("ITU Database", 5);
-
-        REQUIRE_THROWS(databse.getSize());
+    GIVEN("Database is given"){
+        DB database("ITU Lecturer DB",10);
+        WHEN("Element Added"){
+            /// In faulty situations we can send throw directly. ID is int not double 0.5
+            CHECK_THROWS(database.addUser(data("Feza Buzluca", 0.5)), throw my_exception{});
+        }
     }
 }
+
+
+
 
 

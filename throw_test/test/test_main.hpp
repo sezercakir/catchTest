@@ -17,13 +17,24 @@
 #include <string>
 #include <utility>
 
+class my_exception: public std::exception
+{
+    std::string what_message;
+public:
+    explicit my_exception(std::string  msg) : what_message(std::move(msg)){}
+    my_exception()= default;
+    const char* what() const noexcept override{
+        return what_message.c_str();
+    }
+};
+
 class data{
     std::string name;
-    double money;
     int ID;
 public:
-    data(std::string n, double m , int id) : name(std::move(n)), money(m), ID(id){}
+    data(std::string n, int id) : name(std::move(n)), ID(id){}
     data(){};
+    std::string getName() const { return name;}
 };
 
 class DB{
@@ -37,24 +48,31 @@ public:
         users = new data[s];
     }
 
-    static void getSize() {
+    int getSize() const {
+        return size;
+    }
+    static  void throwExc(){
         throw std::runtime_error("ABC") ;
     }
 
     void resize();
     data* getUsers(){ return users;}
+    int getCount() { return count;}
     void addUser(const data& user);
+
 
 };
 
 void DB::resize ()
 {
-    size_t newSize = size*2;
-    data* newUsers = new data[newSize];
-    std::copy(users, users+newSize, newUsers);
+    if (users != nullptr)
+        throw my_exception("Logic Error");
+    int newSize = size*2;
+    data* newArr = new data[newSize];
+    std::copy(users, users + std::min(size, newSize), newArr);
     size = newSize;
-    delete users;
-    users = newUsers;
+    delete[] users;
+    users = newArr;
 }
 
 void DB::addUser (const data & user)
@@ -63,6 +81,8 @@ void DB::addUser (const data & user)
         resize();
     users[count] = user;
     count++;
+    if (users[count-1].getName() == "HTU")
+        throw my_exception("Adding Error");
 }
 
 
