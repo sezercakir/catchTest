@@ -15,7 +15,6 @@
 #include "catch.hpp"
 #include <iostream>
 #include <string>
-#include <utility>
 
 class my_exception: public std::exception
 {
@@ -57,9 +56,9 @@ public:
 
     void resize();
     data* getUsers(){ return users;}
-    int getCount() { return count;}
+    int getCount() const { return count;}
     void addUser(const data& user);
-
+    void delete_elmnt(const std::string& n);
 
 };
 
@@ -67,6 +66,7 @@ void DB::resize ()
 {
     if (users != nullptr)
         throw my_exception("Logic Error");
+
     int newSize = size*2;
     data* newArr = new data[newSize];
     std::copy(users, users + std::min(size, newSize), newArr);
@@ -84,6 +84,23 @@ void DB::addUser (const data & user)
     if (users[count-1].getName() == "HTU")
         throw my_exception("Adding Error");
 }
+
+void DB::delete_elmnt(const std::string& n) {
+    data* ptr = users;
+    int j = 0;
+    for (int i = 0; i < count; i++) {
+        if (users[i].getName() == n){
+            users[j] = ptr[j+1];
+        } else{
+            users[j] = ptr[j];
+        }
+        j++;
+
+    }
+    count--;
+    delete ptr;
+}
+
 
 
 #endif /* TEST_MAIN_HPP */

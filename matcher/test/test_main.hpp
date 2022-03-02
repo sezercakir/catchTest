@@ -52,7 +52,7 @@ public:
     data* getUsers() const { return users;}
     int getCount() const { return count;}
     void addUser(const data& user);
-
+    void delete_elmnt(const std::string& n);
 
 };
 
@@ -78,32 +78,20 @@ void DB::addUser (const data & user)
         throw my_exception("Adding Error");
 }
 
-/// Matcher Class
-class SearchDB_Matcher : public Catch::MatcherBase<data>{
-    DB db;
-public:
-    explicit SearchDB_Matcher(DB  in) : db(std::move(in)){}
-
-    /// Performs the test for this matcher
-    bool match( data const& user) const override{
-        for (size_t i = 0; i < db.getSize(); i++){
-            if (db.getUsers()[i].getName() == user.getName())
-                return true;
+void DB::delete_elmnt(const std::string& n) {
+    data* ptr = users;
+    int j = 0;
+    for (int i = 0; i < count; i++) {
+        if (users[i].getName() == n){
+            users[j] = ptr[j+1];
+        } else{
+            users[j] = ptr[j];
         }
-        return false;
+        j++;
+
     }
-
-    /// implemented virtual func that is inherited
-    std::string describe() const override {
-        std::ostringstream ss;
-        return ss.str();
-    }
-
-};
-
-/// Builder function
-inline SearchDB_Matcher searchDB(const DB& inDB){
-    return SearchDB_Matcher(inDB);
+    count--;
+    delete ptr;
 }
 
 #endif //MATCHER_TEST_MAIN_HPP

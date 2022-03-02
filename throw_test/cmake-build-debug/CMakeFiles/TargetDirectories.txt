@@ -1,3 +1,0 @@
-C:/Users/PC-N-XXX/CLionProjects/throw_test/cmake-build-debug/CMakeFiles/throw_test.dir
-C:/Users/PC-N-XXX/CLionProjects/throw_test/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/PC-N-XXX/CLionProjects/throw_test/cmake-build-debug/CMakeFiles/rebuild_cache.dir

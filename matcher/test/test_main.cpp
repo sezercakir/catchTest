@@ -4,7 +4,7 @@
 
 #define CATCH_CONFIG_MAIN
 #include "test_main.hpp"
-
+#include "matcher.hpp"
 
 SCENARIO("DB Constructor"){
     GIVEN("DB is given and user"){
